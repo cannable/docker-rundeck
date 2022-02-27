@@ -16,13 +16,13 @@ if [[ $# -ne 1 ]]; then
     exit 1
 fi
 
+version=$1
+
 
 ### Build architecture-specific images
 for arch in ${ARCHES[@]}; do
     buildah bud \
         --arch "$arch" \
         --tag "${IMAGE}:${arch}-${version}" \
-        --build-arg "UNIFI_VERSION=${version}" \
-        --build-arg "UNIFI_PKG_PATH=${cachefile}" \
         -f ./Dockerfile .
 done
